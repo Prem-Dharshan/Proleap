@@ -20,6 +20,7 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self, email, username, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_verified', True)
         extra_fields.setdefault('is_superuser', True)
 
         if extra_fields.get('is_staff') is not True:
@@ -29,7 +30,7 @@ class UserManager(BaseUserManager):
 
         return self.create_user(email, username, password, role=Role.ADMIN, **extra_fields)
 
-
+ 
 class Role(models.TextChoices):
     ADMIN = 'admin', _('Admin')
     USER = "USER", _("User")
