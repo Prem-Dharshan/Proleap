@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-// import { Cards } from "./Cards";
 import axios from "axios";
 import { Cards } from "./Cards";
 import { useNavigate } from "react-router-dom";
@@ -28,7 +27,6 @@ export const Dashboard = ({
   };
   useEffect(() => {
     axios.get("https://type.fit/api/quotes").then((res) => {
-      console.log(res.data);
       const id = Math.floor(Math.random() * res.data.length);
       setTipOfTheDay(res.data[id]);
     });

@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import axios from "axios";
@@ -35,21 +34,6 @@ export const ResetPassword = ({ setCookie, setUserId, setUserName }) => {
     axios
       .post(`http://${import.meta.env.VITE_API_URL}/api/reset_password`, obj)
       .then((res) => {
-        console.log(res.data);
-        // const response = res.data;
-        // if (res.status === 200) {
-        //   // setUserId(response.id);
-        //   setCookie("userId", response.id, { path: "/", secure: true });
-        //   setCookie("userName", response.username, { path: "/", secure: true });
-
-        //   setCookie("accessToken", response.tokens.access, {
-        //     path: "/",
-        //     secure: true,
-        //   });
-        //   setCookie("refreshToken", response.tokens.refresh, {
-        //     path: "/",
-        //     secure: true,
-        //   });
         navigate("/dashboard");
       });
   };

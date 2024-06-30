@@ -54,7 +54,6 @@ export const Cards = ({
         .then((res) => {
           setCards(res.data.cards);
           setCurrentCardId(res.data.recent_card_id);
-          console.log(res.data);
         });
     }
   }, []);
@@ -157,9 +156,7 @@ export const Cards = ({
                     },
                   },
                 )
-                .then((res) => {
-                  console.log(res.data);
-                });
+                .then((res) => {});
             } else if (
               currentCard.questions[i].type === "PARAGRAPH" ||
               currentCard.questions[i].type === "SHORT_ANSWER" ||
@@ -198,9 +195,6 @@ export const Cards = ({
                 options: answer.oid ? answer.oid : null,
                 option: null,
               };
-              //       console.log("RADIO BUTTON");
-              //       console.log(obj);
-              //       // TODO: remove activity and card
               axios
                 .post(
                   `http://${import.meta.env.VITE_API_URL}/apis/answers/`,
@@ -248,151 +242,8 @@ export const Cards = ({
               .id;
         setCurrentCardId(newId);
       }
-      // setCurrentCard(cards.find((element) => element.id == newId))
-      // console.log(cards.find((ele) => ele.sequence_no == currentCard.sequence_no + 1).id);
     }
   };
-  // const getCardDetails = (aid, cid) => {
-  //   setCard(null);
-  //   setRequiredFlag([]);
-  //   setErrorMessage([]);
-  //   axios
-  //     .get(
-  //       `http://${import.meta.env.VITE_API_URL
-  //       }/apis/user/${uid}/activity/${activity.id}/`,
-  //     )
-  //     .then((res) => {
-  //       const response = res.data;
-  //       console.log(response);
-  //       setCard(response);
-  //       setQuestionId(response.question);
-  //       const respons = res.data.questions;
-  //       const tempArray = [];
-  //       for (let i = 0; i < respons.length; i++) {
-  //         let errorObj = {
-  //           id: respons[i].question.id,
-  //           message: "",
-  //           is_true: false,
-  //         };
-  //         if (
-  //           respons[i].question.is_required === true &&
-  //           respons[i].answer.length === 0
-  //         ) {
-  //           let obj = {
-  //             id: respons[i].question.id,
-  //           };
-  //           setRequiredFlag((prev) => [...prev, obj]);
-  //         }
-  //         setErrorMessage((prev) => [...prev, errorObj]);
-  //       }
-  //     });
-  // };
-
-  // const nextCard = (e) => {
-  //   console.log("HE::P");
-  //   console.log(card);
-  //   e.preventDefault();
-  //   let len = activity.card_ids.length;
-  //   const isLastSlide = currentIndex === len - 1;
-  //   const required = requiredFlag.length === 0;
-  //   if (!required) {
-  //     let temp = errorMessage;
-  //     for (let i = 0; i < requiredFlag.length; i++) {
-  //       for (let j = 0; j < temp.length; j++) {
-  //         if (requiredFlag[i].id === temp[j].id) {
-  //           temp[j].message = "Fill out this field";
-  //           setTempFlag(true);
-  //         }
-  //       }
-  //     }
-  //     console.log(temp);
-  //     setErrorMessage(temp);
-  //   } else {
-  //     for (let i = 0; i < questionsId.length; i++) {
-  //       console.log(card.questions[i]);
-  //       if (
-  //         "answer" in card.questions[i].question ||
-  //         "answer" in card.questions[i]
-  //       ) {
-  //         if (card.questions[i].question.type === "RADIO") {
-  //           let obj = {
-  //             question: card.questions[i].question.id,
-  //             answer: "",
-  //             user: userId,
-  //             option: card.questions[i].answer[0].id,
-  //             activity: activity.id,
-  //             card: card.id,
-  //           };
-  //           console.log("RADIO BUTTON");
-  //           console.log(obj);
-  //           // TODO: remove activity and card
-  //           axios
-  //             .post(`http://${import.meta.env.VITE_API_URL}/api/answer/`, obj)
-  //             .then((res) => {
-  //               console.log(res.data);
-  //             });
-  //         } else if (
-  //           card.questions[i].question.type === "TEXT" ||
-  //           card.questions[i].question.type === "SHORT_ANSWER" ||
-  //           card.questions[i].question.type === "DATE"
-  //         ) {
-  //           let obj = {
-  //             question: card.questions[i].question.id,
-  //             answer: card.questions[i].question.answer,
-  //             user: userId,
-  //             option: "",
-  //             activity: activity.id,
-  //             card: card.id,
-  //           };
-  //           console.log("TEXTANSWER");
-  //           console.log(obj);
-  //           axios
-  //             .post(`http://${import.meta.env.VITE_API_URL}/api/answer/`, obj)
-  //             .then((res) => {
-  //               console.log(res.data);
-  //             })
-  //             .catch((err) => {
-  //               console.log(err.message);
-  //             });
-  //         } else {
-  //           let obj = {
-  //             question: card.questions[i].question.id,
-  //             answer: null,
-  //             user: userId,
-  //             option: null,
-  //             activity: activity.id,
-  //             card: card.id,
-  //           };
-  //           console.log(obj);
-  //           axios
-  //             .post(`http://${import.meta.env.VITE_API_URL}/api/answer/`, obj)
-  //             .then((res) => {
-  //               // console.log(res.data);
-  //             });
-  //         }
-  //       }
-  //     }
-  //     // console.log("HELLO" + required);
-  //   }
-  //   if (isLastSlide === true) {
-  //     setShowActivity(true);
-  //     setShowCard(false);
-  //   }
-  //   const newIndex = isLastSlide
-  //     ? currentIndex
-  //     : required
-  //       ? currentIndex + 1
-  //       : currentIndex;
-  //   setCurrentIndex(newIndex);
-  // };
-
-  // useEffect(() => {
-  //   if (activity != null) {
-  //     if (currentIndex < activity.total_cards) {
-  //       getCardDetails(activity.id, activity.card_ids[currentIndex]);
-  //     }
-  //   }
-  // }, [currentIndex]);
   return (
     <main className="w-[100%] flex gap-[5%]">
       <div className="cards w-1/2 flex py-3">
@@ -497,11 +348,6 @@ export const Cards = ({
                               className="before:content[''] peer relative w-3 h-3 mr-2 cursor-pointer appearance-none rounded-full border border-blue-200 border-5 hover:bg-gray1/70 focus:bg-tertiary checked:bg-tertiary checked:border-0 active:bg-black transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4  before:transition-opacity  hover:before:opacity-5"
                               type="radio"
                               name={val.desc}
-                              // value={value}
-                              // onChange={(e) =>
-                              //   handleRenderRadioButtonCLick(val, value)
-                              // }
-                              // checked
                               checked={
                                 cards.find(
                                   (element) => element.id == currentCardId,
@@ -514,7 +360,6 @@ export const Cards = ({
                                     : false
                                   : false
                               }
-                              // disabled={val.answer.length != 0 ? true : false}
                               onChange={(e) => {
                                 e.preventDefault();
                                 // val.question.answer = value;

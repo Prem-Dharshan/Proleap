@@ -27,7 +27,6 @@ export const LoginForm = ({ setCookie }) => {
   });
 
   const loginUser = (obj) => {
-    console.log(obj);
     let axiosConfig = {
       headers: {
         "Content-Type": "application/json",
